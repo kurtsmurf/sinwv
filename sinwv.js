@@ -1,7 +1,11 @@
 const canvas = document.querySelector('#wvz')
-const side = 400
-const color = '#0DBC79'
+
 const scale = 8
+const maxWidth = Math.floor(window.innerWidth / scale) * scale - 64
+const maxHeight = Math.floor(window.innerHeight / scale) * scale - 64
+const side = Math.min(maxWidth, maxHeight, 512)
+
+const color = '#0DBC79'
 
 canvas.height = side
 canvas.width = side
