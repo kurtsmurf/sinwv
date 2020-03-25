@@ -28,12 +28,24 @@ const amplitude = height / 3
 const period = width
 let offset = 0
 
-const animate = () => {
-  offset = ++offset % period
+const animateFps = (fps) => {
+  const interval = 1000 / fps
+  let then = Date.now()
 
-  ctx.clearRect(0, 0, width, height)
-  drawSineWave(offset, amplitude, period)
+  const animate = () => {
+    requestAnimationFrame(animate)
 
-  requestAnimationFrame(animate)
+    const elapsed = Date.now() - then
+
+    if (elapsed > interval) {
+      then = Date.now()
+      offset = ++offset % period
+  
+      ctx.clearRect(0, 0, width, height)
+      drawSineWave(offset, amplitude, period)
+    }
+  }
+  animate()
 }
-animate()
+
+animateFps(30)
